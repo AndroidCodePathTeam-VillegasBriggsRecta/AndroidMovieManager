@@ -43,12 +43,17 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 ### 2. Screen Archetypes
 
-* [list first screen here]
-   * [list associated required story here]
-   * ...
-* [list second screen here]
-   * [list associated required story here]
-   * ...
+* Sign In Screen - See Wireframe Screen #1
+* Sign Up Screen - See Wireframe Screen #2
+* Main Screen (New Releases Fragment) - See Wireframe Screen #3
+* Main Screen (Catalog/Wish List Screen) - See Wireframe Screen #4
+* Search Results Screen - See Wireframe Screen #5
+* Individual Film Screen - See Wireframe Screen #6
+* User Profile Screen
+  * As a user I would like to see my profile information and update it if need by
+  * As a user I would like to see my most recent additions to my catalog and wishlist
+  * As a user I would like to see an overview report of my lists (# of films in catalog/wishlist, # of reviews written)
+  * As a user I would like to see a list of reviews I have written
 
 ### 3. Navigation
 
