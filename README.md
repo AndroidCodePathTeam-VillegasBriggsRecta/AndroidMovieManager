@@ -38,6 +38,7 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 * Get prices for DVDs from several retailers for price comparison
 * Search for a film by genre/year/rating
+* Send email notifications of new releases, catalog updates
 
 
 ### 2. Screen Archetypes
