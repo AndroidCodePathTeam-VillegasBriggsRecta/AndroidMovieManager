@@ -12,12 +12,12 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Android Application, Organizer, Cataloger
+- **Mobile:** Yes
+- **Story:** None
+- **Market:** Niche
+- **Habit:** If you have a growing film collection, this might be a tool you frequent
+- **Scope:** Who knows
 
 ## Product Spec
 
