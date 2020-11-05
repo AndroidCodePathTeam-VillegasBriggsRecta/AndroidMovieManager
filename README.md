@@ -68,7 +68,7 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
+<img src="wireframe-sketch.pdf" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
 
