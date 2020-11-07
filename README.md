@@ -78,18 +78,53 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 ## Schema 
 ### Models
-#### Post
+
+#### Users
 
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
-   | objectId      | String   | unique id for the user post (default field) |
-   | author        | Pointer to User| image author |
-   | image         | File     | image that user posts |
-   | caption       | String   | image caption by author |
-   | commentsCount | Number   | number of comments that has been posted to an image |
-   | likesCount    | Number   | number of likes for the post |
-   | createdAt     | DateTime | date when post is created (default field) |
-   | updatedAt     | DateTime | date when post is last updated (default field) |
+   | objectId      | String   | unique id for the user (default field) |
+   | name          | String   | user name   |
+   | password      | String   | user name   |
+   | email         | Email    | user email  |
+   | createdAt     | DateTime | date when user is created (default field) |
+   
+#### Movie
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the movie (default field) |
+   | title         | String   | movie name   |
+   | year          | String   | movie year   |
+   | description   | String   | movie description   |
+   | poster        | File     | movie poster   |
+
+#### Review
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the review (default field) |
+   | user id       | String   | user id   |
+   | movie id      | String   | movie id   |
+   | review        | String   | user review of movie   |
+   
+#### Catalog
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the review (default field) |
+   | user id       | String   | user id   |
+   | movie id      | String   | movie id   |
+   
+#### Wish List
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the review (default field) |
+   | user id       | String   | user id   |
+   | movie id      | String   | movie id   |
+   
+   
 
 ### [BONUS] Digital Wireframes & Mockups
 
