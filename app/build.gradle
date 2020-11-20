@@ -44,4 +44,8 @@ dependencies {
 
     // Parse Library
     implementation "com.github.parse-community.Parse-SDK-Android:parse:1.18.5"
+
+    // For Bottom Navigation View
+    implementation "androidx.appcompat:appcompat:${appCompatVersion}"
+    implementation "com.google.android.material:material:${designSupportVersion}"
 }

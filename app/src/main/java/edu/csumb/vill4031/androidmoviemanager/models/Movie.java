@@ -1,8 +1,5 @@
 package edu.csumb.vill4031.androidmoviemanager.models;
 
-import com.parse.ParseClassName;
-import com.parse.ParseObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Parcel
-@ParseClassName("Movie")
-public class Movie extends ParseObject {
+public class Movie {
     int movieId;
     String backdropPath;
     String posterPath;
