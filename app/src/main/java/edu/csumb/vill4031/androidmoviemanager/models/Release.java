@@ -10,12 +10,16 @@ import java.util.List;
 
 @Parcel
 public class Release {
+    String title;
+    String poster;
     String imdbId;
 
     // Empty constructor needed by the Parceler library
     public  Release() {}
 
     public Release(JSONObject jsonObject) throws JSONException {
+        title = jsonObject.getString("title");
+        poster = jsonObject.getString("poster");
         imdbId = jsonObject.getString("imdbID");
     }
 
@@ -26,6 +30,14 @@ public class Release {
         }
 
         return releases;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPoster() {
+        return poster;
     }
 
     public String getIMDBId() {

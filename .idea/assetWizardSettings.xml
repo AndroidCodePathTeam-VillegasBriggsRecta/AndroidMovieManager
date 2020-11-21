@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/lock/baseline_lock_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/person/baseline_person_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_lock_24" />
-                            <entry key="sourceFile" value="C:\Users\razol\AndroidStudioProjects\AndroidMovieManager" />
+                            <entry key="outputName" value="ic_baseline_person_24" />
+                            <entry key="sourceFile" value="C:\Users\ville\Desktop\AndroidMovieManager" />
                           </map>
                         </option>
                       </PersistentState>
