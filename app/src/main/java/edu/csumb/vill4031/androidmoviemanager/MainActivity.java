@@ -2,17 +2,20 @@ package edu.csumb.vill4031.androidmoviemanager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import edu.csumb.vill4031.androidmoviemanager.fragments.ListFragment;
 import edu.csumb.vill4031.androidmoviemanager.fragments.NewReleasesFragment;
 import edu.csumb.vill4031.androidmoviemanager.fragments.ProfileFragment;
+import edu.csumb.vill4031.androidmoviemanager.fragments.SearchFragment;
 import edu.csumb.vill4031.androidmoviemanager.models.Movie;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
 import okhttp3.Headers;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_lists:
                         fragment = new ListFragment();
+                        break;
+                    case R.id.action_search:
+                        fragment = new SearchFragment();
                         break;
                     case R.id.action_profile:
                     default:

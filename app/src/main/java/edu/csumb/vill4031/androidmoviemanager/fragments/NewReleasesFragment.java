@@ -24,15 +24,13 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.csumb.vill4031.androidmoviemanager.R;
-import edu.csumb.vill4031.androidmoviemanager.adapters.MovieAdapter;
+import edu.csumb.vill4031.androidmoviemanager.adapters.MovieReleaseAdapter;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
 import okhttp3.Headers;
 
 public class NewReleasesFragment extends Fragment {
     public static final String TAG = "NewReleasesFragment";
     public static final String URL = "https://dvd-release-dates.herokuapp.com/this-week";
-
-    public static final String KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
     List<Release> releases;
 
@@ -60,7 +58,7 @@ public class NewReleasesFragment extends Fragment {
         releases = new ArrayList<>();
 
         // Create the adapter
-        final MovieAdapter movieAdapter = new MovieAdapter(getContext(), releases);
+        final MovieReleaseAdapter movieAdapter = new MovieReleaseAdapter(getContext(), releases);
 
         // Set the adapter on the recycler view
         rvMovies.setAdapter(movieAdapter);
