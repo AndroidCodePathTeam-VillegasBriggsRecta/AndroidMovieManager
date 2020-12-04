@@ -12,19 +12,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.csumb.vill4031.androidmoviemanager.R;
+import edu.csumb.vill4031.androidmoviemanager.fragments.MovieFragment;
+import edu.csumb.vill4031.androidmoviemanager.models.Movie;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
+import okhttp3.Headers;
 
-public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapter.ViewHolder>{
+public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapter.ViewHolder> {
     Context context;
     List<Release> movies;
+
+    public static final String TAG = "MovieReleaseAdapter";
+    public static final String KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
     public MovieReleaseAdapter(Context context, List<Release> movies) {
         this.context = context;
@@ -78,15 +91,37 @@ public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapte
             Glide.with(context).load(imageUrl).into(ivPoster);
 
             // Register click listener on the whole row
-//            container.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    // Navigate to a new activity on tap
-//                    Intent i = new Intent(context, ClassName.class);
-//                    i.putExtra("movie", Parcels.wrap(movie));
-//                    context.startActivity(i);
-//                }
-//            });
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    String URL = String.format("https://api.themoviedb.org/3/find/%s?api_key=%s&language=en-US&external_source=imdb_id", tvIMDbID.getText().toString(), KEY);
+
+                    final AsyncHttpClient client = new AsyncHttpClient();
+                    client.get(URL, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int i, Headers headers, JSON json) {
+                            Log.d(TAG, "onSuccess");
+
+                            JSONObject jsonObject = json.jsonObject;
+                            try {
+                                JSONArray results = jsonObject.getJSONArray("movie_results");
+                                List<Movie> movies = Movie.fromJsonArray(results);
+                                
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                Fragment fragment = MovieFragment.newInstance(movies.get(0));
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                            } catch (JSONException e) {
+                                Log.e(TAG, "Hit JSON Exception", e);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                            Log.d(TAG, "onFailure" + i);
+                        }
+                    });
+                }
+            });
         }
     }
 }

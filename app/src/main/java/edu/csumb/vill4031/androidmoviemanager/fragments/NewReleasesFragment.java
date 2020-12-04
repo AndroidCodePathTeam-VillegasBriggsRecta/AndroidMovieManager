@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.csumb.vill4031.androidmoviemanager.R;
 import edu.csumb.vill4031.androidmoviemanager.adapters.MovieReleaseAdapter;
+import edu.csumb.vill4031.androidmoviemanager.models.Movie;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
 import okhttp3.Headers;
 
@@ -79,12 +80,6 @@ public class NewReleasesFragment extends Fragment {
                     releases.addAll(Release.fromJsonArray(results));
                     movieAdapter.notifyDataSetChanged();
                     Log.i(TAG, "Movies: " + releases.size());
-
-//                    for (int i = 0; i < releases.size(); i++) {
-//                        String imdbId = releases.get(i).getIMDBId();
-//                        String findURL = String.format("https://api.themoviedb.org/3/find/%s?api_key=%s&language=en-US&external_source=imdb_id", imdbId, KEY);
-//                        Log.i(TAG, "URL: " + findURL);
-//                    }
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit JSON Exception", e);
                 }
