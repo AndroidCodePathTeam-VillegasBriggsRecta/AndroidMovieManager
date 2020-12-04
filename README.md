@@ -25,6 +25,7 @@ The Movie Manager allows a movie to organize their movie collection and determin
 
 **Required Must-have Stories**
 
+* User can view a list of movies (title, poster image, and overview) currently playing in theaters from the Movie Database API.
 * User sign up/sign in/sign out
 * Present current DVD releases
 * Search for a film, by title, present movie details and user reviews
@@ -34,11 +35,37 @@ The Movie Manager allows a movie to organize their movie collection and determin
 * View wishlist, allow for sorting
 * Review a film
 
+**Codepath Required Stories**
+
+* Creation of GitHub Organization and Group Project Repo
+*	App Overview: Description and evaluation (Mobile, Story, Market, Habit & Scope)
+*	App spec: user stories, screens & navigation flows 
+*	Wireframe images 
+*	Course Portal: Updated group info - Group Name + App Description 
+* Schema: Data Models
+*	Schema: Networking 
+*	Sprint Plan: GitHub Project Board created
+*	Sprint Plan: GitHub Milestones created 
+*	Sprint Plan: GitHub Issues created from user stories 
+*	Sprint Plan: Issues added to project and assigned to specific team members
+* Updated status of issues in Project board
+*	Sprint planned for next week -- Issues created, assigned & added to project board
+*	Completed user stories checked-off in README
+*	Gifs created to show build progress and added to README
+* Create a narrated walkthrough video of your completed app
+*	Present your app at Demo Day
+
 **Optional Nice-to-have Stories**
 
 * Get prices for DVDs from several retailers for price comparison
 * Search for a film by genre/year/rating
 * Send email notifications of new releases, catalog updates
+* Views should be responsive for both landscape/portrait mode
+
+**Optional Codepath Stories**
+
+*	Digital Wireframe/Mockup Images 
+*	Interactive Prototype gif
 
 
 ### 2. Screen Archetypes
@@ -163,3 +190,12 @@ The Movie Manager allows a movie to organize their movie collection and determin
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
