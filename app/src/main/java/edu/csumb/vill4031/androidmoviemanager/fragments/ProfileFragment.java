@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import edu.csumb.vill4031.androidmoviemanager.LoginActivity;
@@ -122,7 +123,69 @@ public class ProfileFragment extends Fragment {
         // Set a Layout Manager
         rvWishList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        displayWishList();
+        wishList.addAll(fetchWishList());
+        wishListAdapter.notifyDataSetChanged();
+
+        Log.i(TAG, "WISHLIST SIZE: " + String.valueOf(wishList.size()));
+
+        for (Movie movie : wishList) {
+            Log.i(TAG, movie.getTitle());
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                Log.i(TAG,"Logout button in Action Bar clicked.");
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                startActivity(i);
+                Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private List<Movie> fetchWishList() {
+        List<Movie> movies = new ArrayList<>();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Wish_List");
+        query.whereEqualTo("user_id", ParseUser.getCurrentUser());
+
+        ParseQuery<ParseMovie> movieQuery = ParseQuery.getQuery("Movie");
+
+        try {
+            List<ParseObject> results = query.find();
+            for (ParseObject result : results) {
+                ParseObject obj = (ParseObject) result.get("movie_id");
+
+                try {
+                    List<ParseMovie> res = movieQuery.find();
+                    for (ParseMovie r : res) {
+                        if (r.getObjectId().equals(obj.getObjectId())) {
+                            Movie m = new Movie();
+
+                            m.setMovieId(r.getIMDbID());
+                            m.setBackdropPath(r.getBackdropPath());
+                            m.setOverview(r.getDescription());
+                            m.setRating(r.getRating());
+                            m.setPosterPath(r.getPosterPath());
+                            m.setTitle(r.getTitle());
+
+                            movies.add(m);
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
+    }
+
+
+//        displayWishList();
 
 //        private void queryWishList(){
 //            ParseQuery<ParseWishList> query = ParseQuery.getQuery(ParseWishList.class);
@@ -165,46 +228,33 @@ public class ProfileFragment extends Fragment {
 //            }
 //        });
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                Log.i(TAG,"Logout button in Action Bar clicked.");
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                startActivity(i);
-                Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void displayWishList() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Wish_List");
-        query.whereEqualTo("user_id", ParseUser.getCurrentUser());
-
-        ParseQuery<ParseMovie> movieQuery = ParseQuery.getQuery("Movie");
-
-        try{
-            List<ParseObject> results = query.find();
-            for(ParseObject result : results){
-                Log.i(TAG, "Object found " + result.getObjectId());
-                Log.i(TAG, result.get("movie_id").toString());
-                ParseObject obj = (ParseObject) result.get("movie_id");
-                Log.i(TAG, obj.getObjectId());
-
-                try{
-                    List<ParseMovie> res = movieQuery.find();
-                    for(ParseMovie r: res) {
-                        if(r.getObjectId().equals(obj.getObjectId())){
-                            Log.i(TAG, "In database" + r.getTitle());
-                        }
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void displayWishList() {
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Wish_List");
+//        query.whereEqualTo("user_id", ParseUser.getCurrentUser());
+//
+//        ParseQuery<ParseMovie> movieQuery = ParseQuery.getQuery("Movie");
+//
+//        try{
+//            List<ParseObject> results = query.find();
+//            for(ParseObject result : results){
+//                Log.i(TAG, "Object found " + result.getObjectId());
+//                Log.i(TAG, result.get("movie_id").toString());
+//                ParseObject obj = (ParseObject) result.get("movie_id");
+//                Log.i(TAG, obj.getObjectId());
+//
+//                try{
+//                    List<ParseMovie> res = movieQuery.find();
+//                    for(ParseMovie r: res) {
+//                        if(r.getObjectId().equals(obj.getObjectId())){
+//                            Log.i(TAG, "In database" + r.getTitle());
+//                        }
+//                    }
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

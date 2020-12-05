@@ -115,7 +115,7 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Adding to Wishlist", Toast.LENGTH_SHORT).show();
-                fetchCatalog();
+//                fetchCatalog();
                 addToWishList(mParam1);
             }
         });
