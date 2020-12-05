@@ -2,19 +2,23 @@ package edu.csumb.vill4031.androidmoviemanager.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
-@ParseClassName("ParseMovie")
+import org.parceler.Parcel;
+
+@ParseClassName("Movie")
+@Parcel(analyze = ParseMovie.class)
 public class ParseMovie extends ParseObject {
-    public static final String KEY_ID = "objectId";
+    public static final String KEY_USER = "objectId";
     public static final String KEY_TITLE = "title";
     public static final String KEY_YEAR = "year";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_POSTER_PATH = "poster_path";
     public static final String KEY_BACKDROP_PATH = "backdrop_path";
 
-    public String getId() {
-        return getString(KEY_ID);
-    }
+    public ParseUser getUser() { return getParseUser(KEY_USER); }
+
+    public void setUser(ParseUser user) { put(KEY_USER, user); }
 
     public String getTitle() {
         return getString(KEY_TITLE);

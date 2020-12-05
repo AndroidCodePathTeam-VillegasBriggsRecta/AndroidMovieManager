@@ -18,11 +18,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 import edu.csumb.vill4031.androidmoviemanager.R;
 import edu.csumb.vill4031.androidmoviemanager.models.Movie;
+import edu.csumb.vill4031.androidmoviemanager.models.ParseMovie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,6 +106,7 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Adding to Catalog", Toast.LENGTH_SHORT).show();
+                addToCatalog(mParam1);
             }
         });
 
@@ -107,5 +116,81 @@ public class MovieFragment extends Fragment {
                 Toast.makeText(getContext(), "Adding to Wishlist", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void addToCatalog(Movie movie) {
+        // Creates a new ParseQuery object to help us fetch Movie objects
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Movie");
+
+        // Fetches data synchronously
+        try {
+            final ParseMovie parseMovie;
+            List<ParseObject> results = query.find();
+            for (ParseObject result : results) {
+                final String title = (String) result.get("title");
+                if (title.equals(movie.getTitle())) {
+                    parseMovie = (ParseMovie) result;
+                    Log.i(TAG, "already in db" + parseMovie.getTitle());
+
+                    ParseObject entity = new ParseObject("Catalog");
+                    entity.put("user_id", ParseUser.getCurrentUser());
+                    entity.put("movie_id", parseMovie);
+                    entity.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null){
+                                Log.e(TAG, "Error while saving in catalog", e);
+                                Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Log.i(TAG, "Catalog save was successful");
+
+                        }
+                    });
+                    return;
+                }
+
+            }
+            parseMovie = new ParseMovie();
+            parseMovie.setTitle(movie.getTitle());
+            parseMovie.setYear("2020");
+            parseMovie.setDescription(movie.getOverview());
+            parseMovie.setPosterPath(movie.getPosterPath());
+            parseMovie.setBackdropPath(movie.getBackdropPath());
+            parseMovie.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null){
+                        Log.e(TAG, "Error while saving", e);
+                        Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Log.i(TAG, "Movie save was successful");
+
+                    ParseObject entity = new ParseObject("Catalog");
+                    entity.put("user_id", ParseUser.getCurrentUser());
+                    entity.put("movie_id", parseMovie);
+                    entity.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null){
+                                Log.e(TAG, "Error while saving in catalog", e);
+                                Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Log.i(TAG, "Catalog save was successful");
+
+                        }
+                    });
+
+                }
+            });
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
