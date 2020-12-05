@@ -2,23 +2,17 @@ package edu.csumb.vill4031.androidmoviemanager.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
-
 import org.parceler.Parcel;
 
 @ParseClassName("Movie")
 @Parcel(analyze = ParseMovie.class)
 public class ParseMovie extends ParseObject {
-    public static final String KEY_USER = "objectId";
     public static final String KEY_TITLE = "title";
-    public static final String KEY_YEAR = "year";
+    public static final String KEY_IMDB_ID = "imdb_id";
+    public static final String KEY_RATING = "rating";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_POSTER_PATH = "poster_path";
     public static final String KEY_BACKDROP_PATH = "backdrop_path";
-
-    public ParseUser getUser() { return getParseUser(KEY_USER); }
-
-    public void setUser(ParseUser user) { put(KEY_USER, user); }
 
     public String getTitle() {
         return getString(KEY_TITLE);
@@ -28,13 +22,13 @@ public class ParseMovie extends ParseObject {
         put(KEY_TITLE, title);
     }
 
-    public String getYear() {
-        return getString(KEY_YEAR);
-    }
+    public String getIMDbID() { return getString(KEY_IMDB_ID); }
 
-    public void setYear(String year) {
-        put(KEY_YEAR, year);
-    }
+    public void setIMDbID(String imdbId) { put(KEY_IMDB_ID, imdbId); }
+
+    public float getRating() { return (float) getDouble(KEY_RATING); }
+
+    public void setRating(float rating) { put(KEY_RATING, rating); }
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
