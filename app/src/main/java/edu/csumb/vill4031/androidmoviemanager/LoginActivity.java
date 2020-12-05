@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Signed in as " + newUsername, Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e(TAG, "Something went wrong with signup:",e);
+                    Toast.makeText(LoginActivity.this, "Problem when attempting to sign in.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

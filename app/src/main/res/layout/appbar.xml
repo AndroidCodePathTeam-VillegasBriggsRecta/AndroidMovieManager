@@ -8,6 +8,7 @@
     android:id="@+id/myToolbar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     app:navigationIcon="@drawable/ic_baseline_person_24"
+    app:navigationContentDescription="Logout"
     app:title="Movie Manager"
     >
 
