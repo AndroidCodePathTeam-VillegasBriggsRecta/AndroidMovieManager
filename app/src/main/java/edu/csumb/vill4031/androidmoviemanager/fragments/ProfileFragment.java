@@ -1,13 +1,23 @@
 package edu.csumb.vill4031.androidmoviemanager.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.parse.ParseUser;
+
+import edu.csumb.vill4031.androidmoviemanager.LoginActivity;
 import edu.csumb.vill4031.androidmoviemanager.R;
 
 /**
@@ -16,6 +26,8 @@ import edu.csumb.vill4031.androidmoviemanager.R;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    public static final String TAG = "ProfileFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +74,25 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        Toolbar toolbar = view.findViewById(R.id.myToolbar);
+        activity.setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                Log.i(TAG,"Logout button in Action Bar clicked.");
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                startActivity(i);
+                Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
