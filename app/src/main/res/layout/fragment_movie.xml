@@ -49,12 +49,16 @@
             android:id="@+id/catalogBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/shapesignup"
+            android:textColor="@color/white"
             android:text="Add to Catalog" />
 
         <Button
             android:id="@+id/wishlistBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/shapesignup"
+            android:textColor="@color/white"
             android:text="Add to Wishlist" />
     </LinearLayout>
 

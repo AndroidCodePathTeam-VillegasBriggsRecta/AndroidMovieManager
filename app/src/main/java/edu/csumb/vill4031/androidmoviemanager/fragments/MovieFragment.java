@@ -116,6 +116,7 @@ public class MovieFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Adding to Wishlist", Toast.LENGTH_SHORT).show();
                 fetchCatalog();
+                addToWishList(mParam1);
             }
         });
     }
@@ -134,7 +135,6 @@ public class MovieFragment extends Fragment {
                 ParseObject obj = (ParseObject) result.get("movie_id");
                 Log.i(TAG, obj.getObjectId());
 
-
                 // Fetches data synchronously
                 try {
                     List<ParseMovie> res = movieQuery.find();
@@ -146,13 +146,6 @@ public class MovieFragment extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
-
-
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -221,6 +214,81 @@ public class MovieFragment extends Fragment {
                         public void done(ParseException e) {
                             if (e != null){
                                 Log.e(TAG, "Error while saving in catalog", e);
+                                Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Log.i(TAG, "Catalog save was successful");
+
+                        }
+                    });
+
+                }
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addToWishList(Movie movie) {
+        // Creates a new ParseQuery object to help us fetch Movie objects
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Movie");
+
+        // Fetches data synchronously
+        try {
+            final ParseMovie parseMovie;
+            List<ParseObject> results = query.find();
+            for (ParseObject result : results) {
+                final String title = (String) result.get("title");
+                if (title.equals(movie.getTitle())) {
+                    parseMovie = (ParseMovie) result;
+                    Log.i(TAG, "already in db" + parseMovie.getTitle());
+
+                    ParseObject entity = new ParseObject("Wish_List");
+                    entity.put("user_id", ParseUser.getCurrentUser());
+                    entity.put("movie_id", parseMovie);
+                    entity.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null){
+                                Log.e(TAG, "Error while saving in wishlist", e);
+                                Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Log.i(TAG, "Wislist save was successful");
+
+                        }
+                    });
+                    return;
+                }
+
+            }
+            parseMovie = new ParseMovie();
+
+            parseMovie.setTitle(movie.getTitle());
+            parseMovie.setIMDbID(String.valueOf(movie.getMovieId()));
+            parseMovie.setDescription(movie.getOverview());
+            parseMovie.setPosterPath(movie.getPosterPath());
+            parseMovie.setBackdropPath(movie.getBackdropPath());
+            parseMovie.setRating((float) movie.getRating());
+
+            parseMovie.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null){
+                        Log.e(TAG, "Error while saving", e);
+                        Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Log.i(TAG, "Movie save was successful");
+
+                    ParseObject entity = new ParseObject("Wish_List");
+                    entity.put("user_id", ParseUser.getCurrentUser());
+                    entity.put("movie_id", parseMovie);
+                    entity.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null){
+                                Log.e(TAG, "Error while saving in wishlilst", e);
                                 Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
                                 return;
                             }

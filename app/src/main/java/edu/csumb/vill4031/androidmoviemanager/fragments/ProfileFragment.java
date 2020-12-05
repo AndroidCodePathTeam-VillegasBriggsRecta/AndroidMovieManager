@@ -19,6 +19,11 @@ import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -31,6 +36,10 @@ import java.util.List;
 import edu.csumb.vill4031.androidmoviemanager.LoginActivity;
 import edu.csumb.vill4031.androidmoviemanager.R;
 import edu.csumb.vill4031.androidmoviemanager.adapters.MovieReleaseAdapter;
+import edu.csumb.vill4031.androidmoviemanager.adapters.MovieSearchAdapter;
+import edu.csumb.vill4031.androidmoviemanager.models.Movie;
+import edu.csumb.vill4031.androidmoviemanager.models.ParseMovie;
+import edu.csumb.vill4031.androidmoviemanager.models.ParseWishList;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
 import okhttp3.Headers;
 
@@ -53,7 +62,7 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    List<Release> wishList;
+    List<Movie> wishList;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -105,7 +114,7 @@ public class ProfileFragment extends Fragment {
         wishList = new ArrayList<>();
 
         // Create the adapter
-        final MovieReleaseAdapter wishListAdapter = new MovieReleaseAdapter(getContext(), wishList);
+        final MovieSearchAdapter wishListAdapter = new MovieSearchAdapter(getContext(), wishList);
 
         // Set the adapter on the recycler view
         rvWishList.setAdapter(wishListAdapter);
@@ -113,29 +122,48 @@ public class ProfileFragment extends Fragment {
         // Set a Layout Manager
         rvWishList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final AsyncHttpClient client = new AsyncHttpClient();
-        client.get(URL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, "onSuccess");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("releases");
-                    Log.i(TAG, "Wishlist: " + results.toString());
+        displayWishList();
 
-                    wishList.addAll(Release.fromJsonArray(results));
-                    wishListAdapter.notifyDataSetChanged();
-                    Log.i(TAG, "Movies: " + wishList.size());
-                } catch (JSONException e) {
-                    Log.e(TAG, "Hit JSON Exception", e);
-                }
-            }
+//        private void queryWishList(){
+//            ParseQuery<ParseWishList> query = ParseQuery.getQuery(ParseWishList.class);
+//            query.findInBackground(new FindCallback<ParseWishList>() {
+//                @Override
+//                public void done(List<ParseWishList> objects, ParseException e) {
+//                    if(e != null) {
+//                        Log.e(TAG, "Issue with getting wishlist");
+//                        return;
+//                    }
+//                    for(ParseWishList object : objects){
+//                        Log.i(TAG, object.getUser().getUsername() + " " + object.getMovie().getTitle());
+//                        movies.add(object.getMovie());
+//                    }
+//                }
+//            });
+//        }
 
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.d(TAG, "onFailure" + statusCode);
-            }
-        });
+//        final AsyncHttpClient client = new AsyncHttpClient();
+//        client.get(URL, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Headers headers, JSON json) {
+//                Log.d(TAG, "onSuccess");
+//                JSONObject jsonObject = json.jsonObject;
+//                try {
+//                    JSONArray results = jsonObject.getJSONArray("releases");
+//                    Log.i(TAG, "Wishlist: " + results.toString());
+//
+//                    wishList.addAll(Movie.fromJsonArray(results));
+//                    wishListAdapter.notifyDataSetChanged();
+//                    Log.i(TAG, "Movies: " + wishList.size());
+//                } catch (JSONException e) {
+//                    Log.e(TAG, "Hit JSON Exception", e);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+//                Log.d(TAG, "onFailure" + statusCode);
+//            }
+//        });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,5 +176,35 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void displayWishList() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Wish_List");
+        query.whereEqualTo("user_id", ParseUser.getCurrentUser());
+
+        ParseQuery<ParseMovie> movieQuery = ParseQuery.getQuery("Movie");
+
+        try{
+            List<ParseObject> results = query.find();
+            for(ParseObject result : results){
+                Log.i(TAG, "Object found " + result.getObjectId());
+                Log.i(TAG, result.get("movie_id").toString());
+                ParseObject obj = (ParseObject) result.get("movie_id");
+                Log.i(TAG, obj.getObjectId());
+
+                try{
+                    List<ParseMovie> res = movieQuery.find();
+                    for(ParseMovie r: res) {
+                        if(r.getObjectId().equals(obj.getObjectId())){
+                            Log.i(TAG, "In database" + r.getTitle());
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
