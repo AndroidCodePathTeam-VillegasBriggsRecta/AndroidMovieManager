@@ -11,7 +11,7 @@ import java.util.List;
 
 @Parcel
 public class Movie implements Serializable {
-    int movieId;
+    String movieId;
     String backdropPath;
     String posterPath;
     String title;
@@ -22,7 +22,7 @@ public class Movie implements Serializable {
     public  Movie() {}
 
     public Movie(JSONObject jsonObject) throws JSONException {
-        movieId = jsonObject.getInt("id");
+        movieId = jsonObject.getString("id");
         backdropPath = jsonObject.getString("backdrop_path");
         posterPath = jsonObject.getString("poster_path");
         title = jsonObject.getString("title");
@@ -44,6 +44,10 @@ public class Movie implements Serializable {
     }
 
     public String getPosterPath() {
+        if (posterPath.startsWith("https://")) {
+            return posterPath;
+        }
+        
         return String.format("https://image.tmdb.org/t/p/w342%s", posterPath);
     }
 
@@ -59,7 +63,31 @@ public class Movie implements Serializable {
         return rating;
     }
 
-    public int getMovieId() {
+    public String getMovieId() {
         return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }

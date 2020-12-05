@@ -30,6 +30,7 @@ import java.util.List;
 
 import edu.csumb.vill4031.androidmoviemanager.R;
 import edu.csumb.vill4031.androidmoviemanager.models.Movie;
+import edu.csumb.vill4031.androidmoviemanager.models.ParseCatalog;
 import edu.csumb.vill4031.androidmoviemanager.models.ParseMovie;
 
 /**
@@ -114,9 +115,51 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Adding to Wishlist", Toast.LENGTH_SHORT).show();
+                fetchCatalog();
             }
         });
     }
+
+    public void fetchCatalog() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Catalog");
+        query.whereEqualTo("user_id", ParseUser.getCurrentUser());
+
+        ParseQuery<ParseMovie> movieQuery = ParseQuery.getQuery("Movie");
+
+        try {
+            List<ParseObject> results = query.find();
+            for (ParseObject result : results) {
+                Log.i(TAG, "Object found " + result.getObjectId());
+                Log.i(TAG, result.get("movie_id").toString());
+                ParseObject obj = (ParseObject) result.get("movie_id");
+                Log.i(TAG, obj.getObjectId());
+
+
+                // Fetches data synchronously
+                try {
+                    List<ParseMovie> res = movieQuery.find();
+                    for (ParseMovie r : res) {
+                        if (r.getObjectId().equals(obj.getObjectId())) {
+                            Log.i(TAG, "IN DATABASE" + r.getTitle());
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void addToCatalog(Movie movie) {
         // Creates a new ParseQuery object to help us fetch Movie objects
@@ -152,11 +195,14 @@ public class MovieFragment extends Fragment {
 
             }
             parseMovie = new ParseMovie();
+
             parseMovie.setTitle(movie.getTitle());
-            parseMovie.setYear("2020");
+            parseMovie.setIMDbID(String.valueOf(movie.getMovieId()));
             parseMovie.setDescription(movie.getOverview());
             parseMovie.setPosterPath(movie.getPosterPath());
             parseMovie.setBackdropPath(movie.getBackdropPath());
+            parseMovie.setRating((float) movie.getRating());
+
             parseMovie.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -185,12 +231,8 @@ public class MovieFragment extends Fragment {
 
                 }
             });
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
-
     }
 }
