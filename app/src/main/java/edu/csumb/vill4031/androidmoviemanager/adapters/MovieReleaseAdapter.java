@@ -29,12 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.csumb.vill4031.androidmoviemanager.R;
 import edu.csumb.vill4031.androidmoviemanager.fragments.MovieFragment;
 import edu.csumb.vill4031.androidmoviemanager.models.Movie;
+import edu.csumb.vill4031.androidmoviemanager.models.ParseWishList;
 import edu.csumb.vill4031.androidmoviemanager.models.Release;
 import okhttp3.Headers;
 
 public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapter.ViewHolder> {
     Context context;
     List<Release> movies;
+    List<ParseWishList> wishLists;
 
     public static final String TAG = "MovieReleaseAdapter";
     public static final String KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
