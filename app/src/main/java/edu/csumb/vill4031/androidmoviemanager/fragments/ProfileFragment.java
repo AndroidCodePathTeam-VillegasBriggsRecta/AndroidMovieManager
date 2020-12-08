@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -107,10 +108,10 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        Toolbar toolbar = view.findViewById(R.id.myToolbar);
-        activity.setSupportActionBar(toolbar);
 
-        RecyclerView rvWishList = view.findViewById(R.id.rvWishList);
+        Button btnLogout = view.findViewById(R.id.btnLogout);
+
+        RecyclerView rvWishList = view.findViewById(R.id.rvWishlist);
 
         wishList = new ArrayList<>();
 
@@ -131,11 +132,12 @@ public class ProfileFragment extends Fragment {
         for (Movie movie : wishList) {
             Log.i(TAG, movie.getTitle());
         }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), LoginActivity.class);
-                Log.i(TAG,"Logout button in Action Bar clicked.");
+                Log.i(TAG,"Logout button was clicked.");
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 startActivity(i);
