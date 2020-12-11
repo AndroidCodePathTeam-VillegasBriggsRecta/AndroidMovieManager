@@ -18,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -40,6 +43,7 @@ import edu.csumb.vill4031.androidmoviemanager.models.ParseMovie;
  */
 public class MovieFragment extends Fragment {
     public static final String TAG = "MovieFragment";
+    private static final String YOUTUBE_API_KEY = "AIzaSyCscfO6aVdRmJh15kh6d25hfuxZ3Q0jPdo";
     // the fragment initialization parameter
     private static final String ARG_PARAM1 = "param1";
 
@@ -82,16 +86,24 @@ public class MovieFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_movie, container, false);
     }
 
+    /*youtube xml placeholder
+    <com.google.android.youtube.player.YouTubePlayerSupportFragment
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+     */
+
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView ivPoster = view.findViewById(R.id.ivPoster);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         RatingBar ratingBar = view.findViewById(R.id.ratingBar);
         TextView tvOverview = view.findViewById(R.id.tvOverview);
+//        YouTubePlayerSupportFragment youTubePlayerView = view.findViewById(R.id.player);
 
         String imageUrl = mParam1.getPosterPath();
         Glide.with(getContext()).load(imageUrl).into(ivPoster);
