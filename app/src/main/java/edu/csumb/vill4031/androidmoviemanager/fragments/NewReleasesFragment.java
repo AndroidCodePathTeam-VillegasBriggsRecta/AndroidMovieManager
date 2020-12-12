@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -54,6 +55,7 @@ public class NewReleasesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final TextView tvWeekOf = view.findViewById(R.id.tvWeekOf);
         RecyclerView rvMovies = view.findViewById(R.id.rvMovies);
 
         releases = new ArrayList<>();
@@ -74,6 +76,9 @@ public class NewReleasesFragment extends Fragment {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
+                    String weekOf = jsonObject.getString("weekOf");
+                    Log.i(TAG, "Week Of: " + weekOf);
+                    tvWeekOf.setText(weekOf);
                     JSONArray results = jsonObject.getJSONArray("releases");
                     Log.i(TAG, "Releases: " + results.toString());
 
