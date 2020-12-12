@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -115,6 +116,9 @@ public class ProfileFragment extends Fragment {
         Button btnChangePassword = view.findViewById(R.id.btnChangePassword);
         final EditText newPassword = view.findViewById(R.id.etChangePassword);
         final EditText newUsername = view.findViewById(R.id.etChangeUsername);
+        TextView tvGreeting = view.findViewById(R.id.tvGreeting);
+
+        tvGreeting.setText("Hello " + ParseUser.getCurrentUser().getUsername() + "!");
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +128,7 @@ public class ProfileFragment extends Fragment {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 startActivity(i);
-                Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -137,6 +141,7 @@ public class ProfileFragment extends Fragment {
                 Log.i(TAG, "Changed password to " + changedPassword);
                 Toast.makeText(getContext(), "Your password was changed and will update soon!", Toast.LENGTH_SHORT).show();
                 currentUser.saveInBackground();
+                newPassword.getText().clear();
             }
         });
 
@@ -149,6 +154,7 @@ public class ProfileFragment extends Fragment {
                 Log.i(TAG, "Changed username to " + changedUsername);
                 Toast.makeText(getContext(), "Your username was changed and will save soon!", Toast.LENGTH_SHORT).show();
                 currentUser.saveInBackground();
+                newUsername.getText().clear();
             }
         });
     }
