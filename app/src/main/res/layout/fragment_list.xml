@@ -5,9 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ListFragment">
 
-   <RelativeLayout
+   <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <Switch
+           android:id="@+id/listSwitch"
+           android:text="Catalog/Wishlist"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+
+       <TextView
+           android:id="@+id/tvListName"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="20sp"
+           tools:text="# of Movies in List" />
 
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/rvMovieList"
@@ -16,10 +29,10 @@
            android:layout_alignParentStart="true"
            android:layout_alignParentEnd="true"
            android:layout_alignParentBottom="true"
-           android:layout_marginStart="5dp"
-           android:layout_marginTop="5dp"
-           android:layout_marginEnd="5dp"
-           android:layout_marginBottom="5dp" />
-   </RelativeLayout>
+           android:layout_marginStart="0dp"
+           android:layout_marginTop="0dp"
+           android:layout_marginEnd="0dp"
+           android:layout_marginBottom="0dp" />
+   </LinearLayout>
 
 </FrameLayout>
