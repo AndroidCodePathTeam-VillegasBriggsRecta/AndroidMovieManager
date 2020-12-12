@@ -25,7 +25,8 @@
             android:layout_gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shapesignup"
+            android:background="@drawable/shapelogout"
+            android:textColor="@color/white"
             android:text="Logout" />
 
 
@@ -44,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shapesignup"
+            android:textColor="@color/white"
             android:text="Change Username" />
 
         <EditText
@@ -56,6 +58,7 @@
 
         <Button
             android:id="@+id/btnChangePassword"
+            android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
