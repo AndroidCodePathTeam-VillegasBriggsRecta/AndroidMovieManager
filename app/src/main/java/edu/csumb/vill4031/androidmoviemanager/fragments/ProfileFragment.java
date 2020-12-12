@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 startActivity(i);
-                Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
             }
         });
 
