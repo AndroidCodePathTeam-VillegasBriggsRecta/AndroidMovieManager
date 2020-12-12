@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:textSize="32dp"
             android:layout_gravity="center"
