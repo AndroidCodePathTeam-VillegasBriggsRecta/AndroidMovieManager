@@ -47,6 +47,7 @@ public class MovieFragment extends Fragment {
     // the fragment initialization parameter
     private static final String ARG_PARAM1 = "param1";
 
+    List<ParseObject> results;
     private Movie mParam1;
 
 
@@ -113,7 +114,16 @@ public class MovieFragment extends Fragment {
         tvOverview.setText(mParam1.getOverview());
 
         Button catalogBtn = view.findViewById(R.id.catalogBtn);
-        Button wishlistBtn = view.findViewById(R.id.wishlistBtn);
+        final Button wishlistBtn = view.findViewById(R.id.wishlistBtn);
+
+        fetchCatalog();
+        try {
+            if (results.contains(mParam1)) {
+                wishlistBtn.setText("Remove From Wishlist");
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         catalogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,8 +137,9 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Adding to Wishlist", Toast.LENGTH_SHORT).show();
-//                fetchCatalog();
+                //fetchCatalog();
                 addToWishList(mParam1);
+
             }
         });
     }
@@ -173,7 +184,7 @@ public class MovieFragment extends Fragment {
         // Fetches data synchronously
         try {
             final ParseMovie parseMovie;
-            List<ParseObject> results = query.find();
+            results = query.find();
             for (ParseObject result : results) {
                 final String title = (String) result.get("title");
                 if (title.equals(movie.getTitle())) {

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -110,6 +111,10 @@ public class ProfileFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         Button btnLogout = view.findViewById(R.id.btnLogout);
+        Button btnChangeUsername = view.findViewById(R.id.btnChangeUsername);
+        Button btnChangePassword = view.findViewById(R.id.btnChangePassword);
+        final EditText newPassword = view.findViewById(R.id.etChangePassword);
+        final EditText newUsername = view.findViewById(R.id.etChangeUsername);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +125,30 @@ public class ProfileFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 startActivity(i);
                 Toast.makeText(getContext(), "Signed Ouut", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String changedPassword = newPassword.getText().toString();
+                currentUser.put("password",changedPassword);
+                Log.i(TAG, "Changed password to " + changedPassword);
+                Toast.makeText(getContext(), "Your password was changed and will update soon!", Toast.LENGTH_SHORT).show();
+                currentUser.saveInBackground();
+            }
+        });
+
+        btnChangeUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String changedUsername = newUsername.getText().toString();
+                currentUser.put("username",changedUsername);
+                Log.i(TAG, "Changed username to " + changedUsername);
+                Toast.makeText(getContext(), "Your username was changed and will save soon!", Toast.LENGTH_SHORT).show();
+                currentUser.saveInBackground();
             }
         });
     }
