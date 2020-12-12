@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidMovieManager.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidMovieManager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidMovieManager.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidMovieManager.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidMovieManager.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidMovieManager.iml" group="AndroidMovieManager" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="AndroidMovieManager/app" />
     </modules>
   </component>
 </project>
