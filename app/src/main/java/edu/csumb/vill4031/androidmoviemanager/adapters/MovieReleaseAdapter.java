@@ -96,7 +96,7 @@ public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapte
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
-                    String URL = String.format("https://api.themoviedb.org/3/find/%s?api_key=%s&language=en-US&external_source=imdb_id", tvIMDbID.getText().toString(), KEY);
+                    String URL = String.format("https://api.themoviedb.org/3/find/%s?api_key=%s&language=en-US&external_source=imdb_id", movie.getIMDBId(), KEY);
 
                     final AsyncHttpClient client = new AsyncHttpClient();
                     client.get(URL, new JsonHttpResponseHandler() {
