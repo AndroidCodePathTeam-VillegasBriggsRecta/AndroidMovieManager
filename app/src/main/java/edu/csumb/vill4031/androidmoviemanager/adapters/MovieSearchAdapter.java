@@ -75,7 +75,7 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
 
         public void bind(final Movie movie) {
             tvTitle.setText(movie.getTitle());
-            tvIMDbID.setText(String.valueOf(movie.getMovieId()));
+            tvIMDbID.setText(String.format("TOMDb ID: %S", String.valueOf(movie.getMovieId())));
             String imageUrl = movie.getPosterPath();
             Glide.with(context).load(imageUrl).into(ivPoster);
 

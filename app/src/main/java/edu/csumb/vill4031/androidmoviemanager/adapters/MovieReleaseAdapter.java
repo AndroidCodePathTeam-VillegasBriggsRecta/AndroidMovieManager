@@ -88,7 +88,7 @@ public class MovieReleaseAdapter extends RecyclerView.Adapter<MovieReleaseAdapte
 
         public void bind(final Release movie) {
             tvTitle.setText(movie.getTitle());
-            tvIMDbID.setText(movie.getIMDBId());
+            tvIMDbID.setText(String.format("IMDb ID: %s", movie.getIMDBId()));
             String imageUrl = movie.getPoster();
             Glide.with(context).load(imageUrl).into(ivPoster);
 
