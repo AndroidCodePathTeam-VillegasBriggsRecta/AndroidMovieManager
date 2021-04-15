@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
 import android.util.Log;
@@ -49,7 +51,7 @@ public class MovieFragment extends Fragment {
 
     List<ParseObject> results;
     private Movie mParam1;
-
+//    YouTubePlayerFragment youTubePlayerFragment;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -83,9 +85,15 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_movie, container, false);
+//        youTubePlayerFragment.initialize(getString(R.string.api_key),this);
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie, container, false);
     }
+
 
     /*youtube xml placeholder
     <com.google.android.youtube.player.YouTubePlayerSupportFragment
@@ -104,7 +112,6 @@ public class MovieFragment extends Fragment {
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         RatingBar ratingBar = view.findViewById(R.id.ratingBar);
         TextView tvOverview = view.findViewById(R.id.tvOverview);
-//        YouTubePlayerSupportFragment youTubePlayerView = view.findViewById(R.id.player);
 
         String imageUrl = mParam1.getPosterPath();
         Glide.with(getContext()).load(imageUrl).into(ivPoster);
