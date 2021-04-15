@@ -76,13 +76,16 @@ public class NewReleasesFragment extends Fragment {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    String weekOf = jsonObject.getString("weekOf");
-                    Log.i(TAG, "Week Of: " + weekOf);
-                    tvWeekOf.setText(weekOf);
-                    JSONArray results = jsonObject.getJSONArray("releases");
-                    Log.i(TAG, "Releases: " + results.toString());
+                    JSONArray results = jsonObject.getJSONArray("scrape_results");
 
-                    releases.addAll(Release.fromJsonArray(results));
+                    String releaseWeek = results.getJSONObject(0).getString("release_week");
+                    Log.i(TAG, "release week: " + releaseWeek);
+                    tvWeekOf.setText(releaseWeek);
+
+                    JSONArray movies = results.getJSONObject(0).getJSONArray("movies");
+                    Log.i(TAG, "Releases: " + movies.toString());
+
+                    releases.addAll(Release.fromJsonArray(movies));
                     movieAdapter.notifyDataSetChanged();
                     Log.i(TAG, "Movies: " + releases.size());
                 } catch (JSONException e) {

@@ -20,7 +20,7 @@ public class Release {
     public Release(JSONObject jsonObject) throws JSONException {
         title = jsonObject.getString("title");
         poster = jsonObject.getString("poster");
-        imdbId = jsonObject.getString("imdbID");
+        imdbId = jsonObject.getString("imdb_id");
     }
 
     public static List<Release> fromJsonArray(JSONArray releaseJsonArray) throws JSONException {
